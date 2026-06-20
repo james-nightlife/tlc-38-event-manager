@@ -16,6 +16,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "backend_init": "cd backend && npm init"
+    "backend_init": "mkdir backend && cd backend && npm init",
+    "frontend_init": "mkdir frontend && cd frontend && npm create vite@latest . -- --template react",
+    "frontend_dev": "cd frontend && npm run dev",
+    "frontend_build": "cd frontend && npm run build"
   }
 }
