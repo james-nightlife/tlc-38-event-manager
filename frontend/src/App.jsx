@@ -5,12 +5,17 @@ import heroImg from './assets/hero.png'
 import './App.css'
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import Home from './pages/Home';
+import SignIn from './pages/SignIn'
+import RootLayout from './layout/RootLayout'
 
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<Home />} />
+      <Route path='/' element={<RootLayout />}>
+        <Route index element={<Home />} />
+        <Route path='/sign-in' element={<SignIn />} />
+      </Route>
     ),
   )
 

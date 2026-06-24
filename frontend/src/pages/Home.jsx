@@ -1,10 +1,19 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import { Scanner } from '@yudiel/react-qr-scanner';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-    const [scannedData, setScannedData] = React.useState(null); // เก็บข้อมูลที่สแกนได้
-    const [selectedEvent, setSelectedEvent] = React.useState(''); // เก็บค่าของ event ที่เลือก
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(!localStorage.getItem('username')){
+            navigate('/sign-in');
+        }
+    }, [])
+
+    const [scannedData, setScannedData] = useState(null); // เก็บข้อมูลที่สแกนได้
+    const [selectedEvent, setSelectedEvent] = useState(''); // เก็บค่าของ event ที่เลือก
 
     const now = new Date();
     const now_text = now.toLocaleDateString('th-TH')
@@ -14,6 +23,7 @@ const Home = () => {
     }
 
     const handleError = (error) => { // ฟังก์ชันที่ถูกเรียกเมื่อเกิดข้อผิดพลาด
+        console.error(error);
         alert('Error scanning QR code. Please try again.');
     }
 
@@ -29,6 +39,11 @@ const Home = () => {
         }finally{
             setScannedData('');
         }
+    }
+
+    const handleSignOut = () => {
+        localStorage.clear();
+        navigate(0);
     }
   return (
     <>
@@ -46,6 +61,7 @@ const Home = () => {
             <button type="submit" disabled={!(selectedEvent && scannedData)}>Register {now_text}</button>
             <div></div>
         </form>
+        <button onClick={handleSignOut}>ออกจากระบบ</button>
     </>
     
   )
