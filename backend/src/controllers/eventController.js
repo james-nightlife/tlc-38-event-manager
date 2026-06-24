@@ -50,7 +50,7 @@ export const visit = async (req, res, next) => {
       next(err);
     }
 
-    const isUpdate = await user.updateOne({ $push: { boot: boot } });
+    const isUpdate = await user.updateOne({ $push: { visit: boot } });
     if (!isUpdate) {
       const err = createError(404, error.message);
       next(err);
