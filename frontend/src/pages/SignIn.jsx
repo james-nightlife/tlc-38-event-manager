@@ -27,10 +27,19 @@ const SignIn = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input type='text' name='username' />
-        <input type='password' name='password' />
-        <button type='submit'>ลงชื่อเข้าใช้งาน</button>
+      <form 
+        className='flex flex-col gap-4 border p-4'
+        onSubmit={handleSubmit}>
+          <div>ชื่อผู้ใช้งาน</div>
+        <input 
+          type='text' 
+          name='username' />
+          <div>รหัสผ่าน</div>
+        <input 
+          type='password' 
+          name='password' />
+        <button 
+          type='submit'>ลงชื่อเข้าใช้งาน</button>
       </form>
     </>
   )

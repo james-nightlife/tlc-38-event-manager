@@ -7,6 +7,7 @@ import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } 
 import Home from './pages/Home';
 import SignIn from './pages/SignIn'
 import RootLayout from './layout/RootLayout'
+import Dashboard from './pages/Dashboard'
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Route path='/' element={<RootLayout />}>
         <Route index element={<Home />} />
         <Route path='/sign-in' element={<SignIn />} />
+        <Route path='/dashboard' element={<Dashboard />} />
       </Route>
     ),
   )
