@@ -90,8 +90,8 @@ const Dashboard = () => {
     }, [])
     //complete booth count const is recorded number of booths that have been qr scanned for stamp rally.
     const boothRows = Object.entries(boothCounts).sort((a, b) => a[0].localeCompare(b[0]))
-    //
-    
+    //const variable use to record current number of participants that have visited each booth, sorted by booth name in ascending order.
+
     return (
         <div className='min-h-screen bg-slate-50 px-4 py-6 text-slate-900'>
             <div className='mx-auto max-w-7xl space-y-6'>
