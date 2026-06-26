@@ -78,7 +78,7 @@ const Dashboard = () => {
             return acc
         }, {})
     }, [])
-
+    // constant variable to count the number of users who have completed visiting at least 19 booths for each day; useMemo is used to memoize the result and save it for later rendering.
     const completeBoothCounts = useMemo(() => {
         return days.reduce((acc, day) => {
             acc[day] = users.filter((user) => {
@@ -88,9 +88,10 @@ const Dashboard = () => {
             return acc
         }, {})
     }, [])
-
+    //complete booth count const is recorded number of booths that have been qr scanned for stamp rally.
     const boothRows = Object.entries(boothCounts).sort((a, b) => a[0].localeCompare(b[0]))
-
+    //
+    
     return (
         <div className='min-h-screen bg-slate-50 px-4 py-6 text-slate-900'>
             <div className='mx-auto max-w-7xl space-y-6'>
