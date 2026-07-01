@@ -21,5 +21,8 @@
     "frontend_dev": "cd frontend && npm i && npm run dev",
     "frontend_build": "cd frontend && npm run build",
     "backend_dev": "cd backend && npm i && npm run dev"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2"
   }
 }
