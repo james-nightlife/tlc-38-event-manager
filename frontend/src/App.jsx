@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import SignIn from './pages/SignIn'
 import RootLayout from './layout/RootLayout'
 import Dashboard from './pages/Dashboard'
+import DashboardWorkshop from './pages/DashboardWorkshop'
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/dashboard/workshop' element={<DashboardWorkshop />} />
       </Route>
     ),
   )
