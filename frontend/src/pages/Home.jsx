@@ -8,6 +8,8 @@ const Home = () => {
     const [selectedEvent, setSelectedEvent] = useState(''); // เก็บค่าของ event ที่เลือก
     const [user, setUser] = useState({});
 
+    const sponsor = localStorage.getItem('role') === 'sponsor' ? localStorage.getItem('username') : null;
+
     const now = new Date();
     const now_text = now.toLocaleDateString('th-TH')
 
@@ -57,23 +59,62 @@ const Home = () => {
         localStorage.clear();
         navigate(0);
     }
+
+    const handleInputChange = async (e) => {
+        try{
+            const req = await axios.get();
+            setUser(req.data.user);
+        }catch(e){
+            alert(e)
+        }     
+    }
   return (
     <>
-        <form onSubmit={handleSubmit} className='border flex flex-col p-4 gap-4'>
-            <div>นำกล้องส่องคิวอาร์โค้ดของผู้เข้าร่วมงาน</div>
+        <div className='flex flex-col items-center justify-center gap-4'>
+            <form onSubmit={handleSubmit} className='max-w-sm border flex flex-col p-4 gap-4'>
+            <div className='text-center'>นำกล้องส่องคิวอาร์โค้ดของผู้เข้าร่วมงาน</div>
             <Scanner // คอมโพเนนต์สำหรับสแกน QR code
                 onScan={handleScan} 
                 onError={handleError} />
-            <div>QR Code ID : {scannedData || 'ไม่พบ'}</div>
-            <div>ชื่อ : {user.name}</div>
-            <div>สถาบันอุดมศึกษา : {user.university}</div>
-            <div>วัน / เดือน / ปี : {now_text}</div>
-            <div>กิจกรรม : </div>
+            <div>QR Code ID : </div>
+            <input type="text" value={scannedData || ''} onChange={(e) => setScannedData(e.target.value)} />
+            <button onClick={handleInputChange}>ตรวจสอบข้อมูล</button>
+            <div>ชื่อ : </div>
+            <input type="text" value={user.name || ''} readOnly />
+            <div>สถาบันอุดมศึกษา : </div>
+            <input type="text" value={user.university || ''} readOnly />
+            
+            {
+                localStorage.getItem('role') === 'swu' && (
+                    <>
+                    <div>กิจกรรม : </div>
+                    <select value={selectedEvent} onChange={(e) => setSelectedEvent(e.target.value)}>
+                        <option value="">เลือกกิจกรรม</option>
+                        <option value="visit9">ลงทะเบียนวันที่ 9 ก.ค. 2569</option>
+                        <option value="visit10">ลงทะเบียนวันที่ 10 ก.ค. 2569</option>
+                        <option value="workshop1">ลงทะเบียน Workshop 1</option>
+                        <option value="workshop2">ลงทะเบียน Workshop 2</option>
+                        <option value="workshop3">ลงทะเบียน Workshop 3</option>
+                    </select>
+                    </>
+                )
+            }
+            {
+                localStorage.getItem('role') === 'sponsor' && (
+                    <>
+                        <div>ผู้สนับสนุน : </div>
+                        <input type="text" value={sponsor} readOnly />
+                    </>
+                )
+            }
+            
             <button 
                 type="submit" 
                 disabled={!scannedData}>รับลงทะเบียน</button>
             <button onClick={handleSignOut}>ออกจากระบบ</button>
         </form>
+        </div>
+        
     </>
     
   )

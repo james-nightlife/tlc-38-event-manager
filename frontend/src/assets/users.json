@@ -1,0 +1,412 @@
+[
+  {
+    "username":"p1ebsco", 
+    "password":"P1EbscoInfo",
+    "role":"sponsor"
+  },
+  {
+    "username":"p2oclc", 
+    "password":"P2Oclc", 
+    "role":"sponsor"
+  },
+  {
+    "username":"p3wiserf", 
+    "password":"P3Wiserf", 
+    "role":"sponsor"
+  },
+  {
+    "username":"p4elsevier", 
+    "password":"P4Elsevier", 
+    "role":"sponsor"
+  },
+  {
+    "username":"p5premier", 
+    "password":"P5Premier", 
+    "role":"sponsor"
+  },
+  {
+    "username":"g1cnki", 
+    "password":"G1Cnki", 
+    "role":"sponsor"
+  },
+  {
+    "username":"g2imagevisual", 
+    "password":"G2ImageVisual", 
+    "role":"sponsor"
+  },
+  {
+    "username":"g3lannacom", 
+    "password":"G3Lannacom", 
+    "role":"sponsor"
+  },
+  {
+    "username":"s1traceonline", 
+    "password":"S1TraceOnline", 
+    "role":"sponsor"
+  },
+  {
+    "username":"s2globejstor", 
+    "password":"S2GlobeJstor", 
+    "role":"sponsor"
+  },
+  {
+    "username":"s3synnex", 
+    "password":"S3Synnex", 
+    "role":"sponsor"
+  },
+  {
+    "username":"b1emerald", 
+    "password":"B1Emerald", 
+    "role":"sponsor"
+  },
+  {
+    "username":"b2wiley", 
+    "password":"B2Wiley", 
+    "role":"sponsor"
+  },
+  {
+    "username":"b3ascendger", 
+    "password":"B3Ascendger", 
+    "role":"sponsor"
+  },
+  {
+    "username":"b4gale", 
+    "password":"B4Gale", 
+    "role":"sponsor"
+  },
+  {
+    "username":"b5journet", 
+    "password":"B5Journet", 
+    "role":"sponsor"
+  },
+  {
+    "username":"b6springer", 
+    "password":"B6Springer", 
+    "role":"sponsor"
+  },
+  {
+    "username":"b7bookpromotion", 
+    "password":"B7BookPromotion", 
+    "role":"sponsor"
+  },
+  {
+    "username":"bajclair", 
+    "password":"BAJclair", 
+    "role":"sponsor"
+  },
+  {
+    "username": "patchareer@g.swu.ac.th",
+    "password": "0000015337",
+    "role": "swu"
+  },
+  {
+    "username": "phapanat@g.swu.ac.th",
+    "password": "0001027237",
+    "role": "swu"
+  },
+  {
+    "username": "songyot@g.swu.ac.th",
+    "password": "0000011983",
+    "role": "swu"
+  },
+  {
+    "username": "phapada@g.swu.ac.th",
+    "password": "0001015381",
+    "role": "swu"
+  },
+  {
+    "username": "chinnakorn@g.swu.ac.th",
+    "password": "0000015375",
+    "role": "swu"
+  },
+  {
+    "username": "surasak@g.swu.ac.th",
+    "password": "0000015338",
+    "role": "swu"
+  },
+  {
+    "username": "siwapornc@g.swu.ac.th",
+    "password": "0000015379",
+    "role": "swu"
+  },
+  {
+    "username": "sangjanv@g.swu.ac.th",
+    "password": "0000011973",
+    "role": "swu"
+  },
+  {
+    "username": "arisaw@g.swu.ac.th ",
+    "password": "0000015339",
+    "role": "swu"
+  },
+  {
+    "username": "janejiram@g.swu.ac.th",
+    "password": "0001027233",
+    "role": "swu"
+  },
+  {
+    "username": "charusch@g.swu.ac.th",
+    "password": "0000015341",
+    "role": "swu"
+  },
+  {
+    "username": "umapornn@g.swu.ac.th",
+    "password": "0000011973",
+    "role": "swu"
+  },
+  {
+    "username": "rungrada@g.swu.ac.th",
+    "password": "0000015382",
+    "role": "swu"
+  },
+  {
+    "username": "kittisakk@g.swu.ac.th",
+    "password": "0001015387",
+    "role": "swu"
+  },
+  {
+    "username": "wannisa@g.swu.ac.th",
+    "password": "0001027234",
+    "role": "swu"
+  },
+  {
+    "username": "anong@g.swu.ac.th",
+    "password": "0001027238",
+    "role": "swu"
+  },
+  {
+    "username": "nairat@g.swu.ac.th",
+    "password": "0001011980",
+    "role": "swu"
+  },
+  {
+    "username": "pornchanok@g.swu.ac.th",
+    "password": "0001021250",
+    "role": "swu"
+  },
+  {
+    "username": "thasanee@g.swu.ac.th",
+    "password": "0002021250",
+    "role": "swu"
+  },
+  {
+    "username": "samart@g.swu.ac.th",
+    "password": "0001011974",
+    "role": "swu"
+  },
+  {
+    "username": "anurakh@g.swu.ac.th",
+    "password": "0001011984",
+    "role": "swu"
+  },
+  {
+    "username": "surachai@g.swu.ac.th",
+    "password": "0001015385",
+    "role": "swu"
+  },
+  {
+    "username": "amnatp@g.swu.ac.th",
+    "password": "0003021250",
+    "role": "swu"
+  },
+  {
+    "username": "anchaleet@g.swu.ac.th",
+    "password": "0001011976",
+    "role": "swu"
+  },
+  {
+    "username": "hatairat@g.swu.ac.th",
+    "password": "0001021256",
+    "role": "swu"
+  },
+  {
+    "username": "aumporn@g.swu.ac.th",
+    "password": "0000027233",
+    "role": "swu"
+  },
+  {
+    "username": "subpalux@g.swu.ac.th",
+    "password": "0001027226",
+    "role": "swu"
+  },
+  {
+    "username": "chanidap@g.swu.ac.th",
+    "password": "0001021257",
+    "role": "swu"
+  },
+  {
+    "username": "isaya@g.swu.ac.th",
+    "password": "0001015386",
+    "role": "swu"
+  },
+  {
+    "username": "arunrat@g.swu.ac.th",
+    "password": "0002015387",
+    "role": "swu"
+  },
+  {
+    "username": "bongkotrat@g.swu.ac.th",
+    "password": "0003015387",
+    "role": "swu"
+  },
+  {
+    "username": "uangfa@g.swu.ac.th",
+    "password": "0002027237",
+    "role": "swu"
+  },
+  {
+    "username": "piyarak@g.swu.ac.th",
+    "password": "0002011974",
+    "role": "swu"
+  },
+  {
+    "username": "krengsak@g.swu.ac.th",
+    "password": "0004015387",
+    "role": "swu"
+  },
+  {
+    "username": "apidaj@g.swu.ac.th",
+    "password": "0003011974",
+    "role": "swu"
+  },
+  {
+    "username": "amonrats@g.swu.ac.th",
+    "password": "0003027237",
+    "role": "swu"
+  },
+  {
+    "username": "ratchaneek@g.swu.ac.th",
+    "password": "0005015385",
+    "role": "swu"
+  },
+  {
+    "username": "pimonpan@g.swu.ac.th",
+    "password": "0004027237",
+    "role": "swu"
+  },
+  {
+    "username": "siripornki@g.swu.ac.th",
+    "password": "0005027237",
+    "role": "swu"
+  },
+  {
+    "username": "datnarong@g.swu.ac.th",
+    "password": "0005015387",
+    "role": "swu"
+  },
+  {
+    "username": "sujittra@g.swu.ac.th",
+    "password": "0008015387",
+    "role": "swu"
+  },
+  {
+    "username": "namngoec@g.swu.ac.th",
+    "password": "0005027226",
+    "role": "swu"
+  },
+  {
+    "username": "mattanab@g.swu.ac.th",
+    "password": "0002011982",
+    "role": "swu"
+  },
+  {
+    "username": "kanyada@g.swu.ac.th",
+    "password": "0002015384",
+    "role": "swu"
+  },
+  {
+    "username": "pattapor@g.swu.ac.th",
+    "password": "0002015381",
+    "role": "swu"
+  },
+  {
+    "username": "arunyaf@g.swu.ac.th",
+    "password": "0001015384",
+    "role": "swu"
+  },
+  {
+    "username": "pongsaka@g.swu.ac.th",
+    "password": "0000011985",
+    "role": "swu"
+  },
+  {
+    "username": "praphats@g.swu.ac.th",
+    "password": "0001011982",
+    "role": "swu"
+  },
+  {
+    "username": "prachong@g.swu.ac.th",
+    "password": "0005015381",
+    "role": "swu"
+  },
+  {
+    "username": "jukkrit@g.swu.ac.th",
+    "password": "0003015381",
+    "role": "swu"
+  },
+  {
+    "username": "pariwats@g.swu.ac.th",
+    "password": "0004015381",
+    "role": "swu"
+  },
+  {
+    "username": "hataichanok@g.swu.ac.th",
+    "password": "0020027226",
+    "role": "swu"
+  },
+  {
+    "username": "sanit@g.swu.ac.th",
+    "password": "0030015387",
+    "role": "swu"
+  },
+  {
+    "username": "jantira@g.swu.ac.th",
+    "password": "0020021257",
+    "role": "swu"
+  },
+  {
+    "username": "yupapornc@g.swu.ac.th",
+    "password": "0020021256",
+    "role": "swu"
+  },
+  {
+    "username": "nantanas@g.swu.ac.th",
+    "password": "0020011982",
+    "role": "swu"
+  },
+  {
+    "username": "karnchanok@g.swu.ac.th",
+    "password": "0001011981",
+    "role": "swu"
+  },
+  {
+    "username": "sutthiphong@g.swu.ac.th",
+    "password": "0002011981",
+    "role": "swu"
+  },
+  {
+    "username": "tanawats@g.swu.ac.th",
+    "password": "0003011981",
+    "role": "swu"
+  },
+  {
+    "username": "sonticha@g.swu.ac.th",
+    "password": "0020015387",
+    "role": "swu"
+  },
+  {
+    "username": "surapongp@g.swu.ac.th",
+    "password": "0020015385",
+    "role": "swu"
+  },
+  {
+    "username": "kiattisak@g.swu.ac.th",
+    "password": "0004011981",
+    "role": "swu"
+  },
+  {
+    "username": "sunthornp@g.swu.ac.th",
+    "password": "0020027233",
+    "role": "swu"
+  }
+]

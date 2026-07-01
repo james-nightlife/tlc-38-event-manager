@@ -1,16 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import users from '../assets/users.json'
 
 const SignIn = () => {
   const navigate = useNavigate();
 
-
-  const users = [
-    {
-      username: 'swu',
-      password: 'swu'
-    },
-  ]
   const handleSubmit = async (e) => {
     e.preventDefault()
     const username = e.target.username.value;
@@ -22,6 +16,7 @@ const SignIn = () => {
       return;
     }
     localStorage.setItem('username', username);
+    localStorage.setItem('role', result[0].role);
     navigate('/');
   }
 
