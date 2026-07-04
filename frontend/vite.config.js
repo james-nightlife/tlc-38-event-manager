@@ -5,6 +5,10 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  server: {
+    https: true,
+    host: true,
+  },
   plugins: [
     react(),
     tailwindcss(),
@@ -12,7 +16,8 @@ export default defineConfig({
       name: 'test',
       domains: [
         'localhost', 
-        '10.1.117.200'
+        '10.1.117.200',
+        '192.168.1.4',
       ],
     }),
   ]

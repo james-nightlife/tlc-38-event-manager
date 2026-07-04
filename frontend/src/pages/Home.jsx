@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const [scannedData, setScannedData] = useState(null); // เก็บข้อมูลที่สแกนได้
-    const [selectedEvent, setSelectedEvent] = useState(''); // เก็บค่าของ event ที่เลือก
     const [user, setUser] = useState({});
 
     const sponsor = localStorage.getItem('role') === 'sponsor' ? localStorage.getItem('username') : null;
@@ -21,8 +20,31 @@ const Home = () => {
         }
     }, [])
 
+    const fetchUserData = async (userId) => {
+        if (!userId) {
+            alert('Please enter or scan a valid ID.');
+            return;
+        }
+        
+        try {
+            const req = await axios.get(`https://libportal.swu.ac.th/tlcAPI/api/tlc/checkin/user/${userId}`, {
+                headers: {
+                    'Authorization': import.meta.env.VITE_API_SECRET
+                }
+            }); 
+            setUser(req.data.user || {});
+        } catch (error) {
+            console.error(error);
+            alert('Error fetching user data. Please try again.');
+        }  
+    };
+
     const handleScan = (data) => { // ฟังก์ชันที่ถูกเรียกเมื่อสแกนสำเร็จ
-        setScannedData(data[0].rawValue);
+        if (data && data[0]?.rawValue) {
+            const qrValue = data[0].rawValue;
+            setScannedData(qrValue); // Update input field
+            fetchUserData(qrValue);  // Execute API call immediately
+        }
     }
 
     const handleError = (error) => { // ฟังก์ชันที่ถูกเรียกเมื่อเกิดข้อผิดพลาด
@@ -30,25 +52,29 @@ const Home = () => {
         alert('Error scanning QR code. Please try again.');
     }
 
-    useEffect(() => {
-        if(!scannedData){
-            setUser({})
-            return;
-        }
-        setUser({
-            name: 'นายคนดี ศรีนครินทร',
-            university: 'มหาวิทยาลัยศรีนครินทรวิโรฒ'
-        })
-    }, [scannedData])
-
     const handleSubmit = async (e) => { // ฟังก์ชันที่ถูกเรียกเมื่อ submit form
         e.preventDefault();
+        alert(import.meta.env.VITE_API_SECRET || 'No API secret found. Please check your environment variables.');
         try{
             //alert(`http://10.1.117.200:3000/api/v1/tlc/register/${selectedEvent}/${scannedData}`)
-            const req = await axios.get(
-                `http://10.1.117.200:3000/api/v1/tlc/register/${selectedEvent}/${scannedData}`
+            const req = await axios.put(
+                `https://libportal.swu.ac.th/tlcAPI/api/tlc/checkin/user/${e.target.id.value}`,
+                {
+                        action: e.target.action.value,
+                        booth: sponsor,
+                        date: e.target.date?.value
+                },
+                {
+                    headers: {
+                        'Authorization': import.meta.env.VITE_API_SECRET
+                    },
+                }
             )
+            alert(req.data.message);
         }catch(e){
+            if(e.response && e.response.data && e.response.data.message){
+                return alert(e.response.data.message);
+            }
             alert(e)
         }finally{
             setScannedData('');
@@ -61,12 +87,7 @@ const Home = () => {
     }
 
     const handleInputChange = async (e) => {
-        try{
-            const req = await axios.get();
-            setUser(req.data.user);
-        }catch(e){
-            alert(e)
-        }     
+        fetchUserData(scannedData);
     }
   return (
     <>
@@ -76,11 +97,13 @@ const Home = () => {
             <Scanner // คอมโพเนนต์สำหรับสแกน QR code
                 onScan={handleScan} 
                 onError={handleError} />
-            <div>QR Code ID : </div>
+            <div>QR Code ID หรืออีเมล : </div>
             <input type="text" value={scannedData || ''} onChange={(e) => setScannedData(e.target.value)} />
-            <button onClick={handleInputChange}>ตรวจสอบข้อมูล</button>
+            <button type='button' onClick={handleInputChange}>ตรวจสอบข้อมูล</button>
+            <div>QR Code ID : </div>
+            <input type="text" name='id' value={user._id || ''} readOnly />
             <div>ชื่อ : </div>
-            <input type="text" value={user.name || ''} readOnly />
+            <input type="text" value={`${user.prefix || ''}${user.firstname || ''} ${user.lastname || ''}`} readOnly />
             <div>สถาบันอุดมศึกษา : </div>
             <input type="text" value={user.university || ''} readOnly />
             
@@ -88,13 +111,13 @@ const Home = () => {
                 localStorage.getItem('role') === 'swu' && (
                     <>
                     <div>กิจกรรม : </div>
-                    <select value={selectedEvent} onChange={(e) => setSelectedEvent(e.target.value)}>
+                    <select name='action'>
                         <option value="">เลือกกิจกรรม</option>
-                        <option value="visit9">ลงทะเบียนวันที่ 9 ก.ค. 2569</option>
-                        <option value="visit10">ลงทะเบียนวันที่ 10 ก.ค. 2569</option>
-                        <option value="workshop1">ลงทะเบียน Workshop 1</option>
-                        <option value="workshop2">ลงทะเบียน Workshop 2</option>
-                        <option value="workshop3">ลงทะเบียน Workshop 3</option>
+                        <option value="9/7/2569">ลงทะเบียนวันที่ 9 ก.ค. 2569</option>
+                        <option value="10/7/2569">ลงทะเบียนวันที่ 10 ก.ค. 2569</option>
+                        <option value="workshop_1">ลงทะเบียน Workshop 1</option>
+                        <option value="workshop_2">ลงทะเบียน Workshop 2</option>
+                        <option value="workshop_3">ลงทะเบียน Workshop 3</option>
                     </select>
                     </>
                 )
@@ -103,7 +126,16 @@ const Home = () => {
                 localStorage.getItem('role') === 'sponsor' && (
                     <>
                         <div>ผู้สนับสนุน : </div>
-                        <input type="text" value={sponsor} readOnly />
+                        <input type="text" name='booth'  readOnly />
+                        <div>วันที่เข้าบูธ : </div>
+                        <select name='date'>
+                            <option value="">เลือกกิจกรรม</option>
+                            <option value="9/7/2569">ลงทะเบียนวันที่ 9 ก.ค. 2569</option>
+                            <option value="10/7/2569">ลงทะเบียนวันที่ 10 ก.ค. 2569</option>
+                            <option value="workshop_1">ลงทะเบียน Workshop 1</option>
+                            <option value="workshop_2">ลงทะเบียน Workshop 2</option>
+                            <option value="workshop_3">ลงทะเบียน Workshop 3</option>
+                        </select>
                     </>
                 )
             }
