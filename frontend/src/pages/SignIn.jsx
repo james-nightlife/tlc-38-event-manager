@@ -22,10 +22,12 @@ const SignIn = () => {
 
   return (
     <>
+    <div className='flex justify-center p-4'>
       <form 
         className='flex flex-col gap-4 border p-4'
         onSubmit={handleSubmit}>
-          <div>ชื่อผู้ใช้งาน</div>
+        <h1>ระบบรับลงทะเบียนเข้าร่วมงาน</h1>
+        <div>ชื่อผู้ใช้งาน</div>
         <input 
           type='text' 
           name='username' />
@@ -36,6 +38,7 @@ const SignIn = () => {
         <button 
           type='submit'>ลงชื่อเข้าใช้งาน</button>
       </form>
+    </div>
     </>
   )
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Scanner } from '@yudiel/react-qr-scanner';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const [scannedData, setScannedData] = useState(null); // เก็บข้อมูลที่สแกนได้
@@ -54,7 +54,7 @@ const Home = () => {
 
     const handleSubmit = async (e) => { // ฟังก์ชันที่ถูกเรียกเมื่อ submit form
         e.preventDefault();
-        alert(import.meta.env.VITE_API_SECRET || 'No API secret found. Please check your environment variables.');
+        //alert(import.meta.env.VITE_API_SECRET || 'No API secret found. Please check your environment variables.');
         try{
             //alert(`http://10.1.117.200:3000/api/v1/tlc/register/${selectedEvent}/${scannedData}`)
             const req = await axios.put(
@@ -77,7 +77,7 @@ const Home = () => {
             }
             alert(e)
         }finally{
-            setScannedData('');
+            navigate(0); // Refresh the page after submission
         }
     }
 
@@ -91,8 +91,8 @@ const Home = () => {
     }
   return (
     <>
-        <div className='flex flex-col items-center justify-center gap-4'>
-            <form onSubmit={handleSubmit} className='max-w-sm border flex flex-col p-4 gap-4'>
+        <div className='flex justify-center p-4'>
+            <div className='border flex flex-col p-4 gap-4'>
             <div className='text-center'>นำกล้องส่องคิวอาร์โค้ดของผู้เข้าร่วมงาน</div>
             <Scanner // คอมโพเนนต์สำหรับสแกน QR code
                 onScan={handleScan} 
@@ -100,6 +100,7 @@ const Home = () => {
             <div>QR Code ID หรืออีเมล : </div>
             <input type="text" value={scannedData || ''} onChange={(e) => setScannedData(e.target.value)} />
             <button type='button' onClick={handleInputChange}>ตรวจสอบข้อมูล</button>
+            <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
             <div>QR Code ID : </div>
             <input type="text" name='id' value={user._id || ''} readOnly />
             <div>ชื่อ : </div>
@@ -111,7 +112,7 @@ const Home = () => {
                 localStorage.getItem('role') === 'swu' && (
                     <>
                     <div>กิจกรรม : </div>
-                    <select name='action'>
+                    <select required name='action'>
                         <option value="">เลือกกิจกรรม</option>
                         <option value="9/7/2569">ลงทะเบียนวันที่ 9 ก.ค. 2569</option>
                         <option value="10/7/2569">ลงทะเบียนวันที่ 10 ก.ค. 2569</option>
@@ -126,15 +127,12 @@ const Home = () => {
                 localStorage.getItem('role') === 'sponsor' && (
                     <>
                         <div>ผู้สนับสนุน : </div>
-                        <input type="text" name='booth'  readOnly />
+                        <input type="text" name='booth' value={sponsor}  readOnly />
                         <div>วันที่เข้าบูธ : </div>
-                        <select name='date'>
+                        <select required name='date'>
                             <option value="">เลือกกิจกรรม</option>
                             <option value="9/7/2569">ลงทะเบียนวันที่ 9 ก.ค. 2569</option>
                             <option value="10/7/2569">ลงทะเบียนวันที่ 10 ก.ค. 2569</option>
-                            <option value="workshop_1">ลงทะเบียน Workshop 1</option>
-                            <option value="workshop_2">ลงทะเบียน Workshop 2</option>
-                            <option value="workshop_3">ลงทะเบียน Workshop 3</option>
                         </select>
                     </>
                 )
@@ -143,8 +141,12 @@ const Home = () => {
             <button 
                 type="submit" 
                 disabled={!scannedData}>รับลงทะเบียน</button>
-            <button onClick={handleSignOut}>ออกจากระบบ</button>
+            
         </form>
+        
+            <Link to="/dashboard" className='bg-blue-500 hover:bg-blue-400 cursor-pointer text-white px-4 py-2 rounded text-center'>สถิติ</Link>
+            <button onClick={handleSignOut}>ออกจากระบบ</button>
+        </div>
         </div>
         
     </>

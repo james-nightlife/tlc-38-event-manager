@@ -20,5 +20,6 @@ export default defineConfig({
         '192.168.1.4',
       ],
     }),
-  ]
+  ],
+  base: 'tlc-38-event-manager',
 })

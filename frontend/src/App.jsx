@@ -20,7 +20,9 @@ function App() {
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/dashboard/workshop' element={<DashboardWorkshop />} />
       </Route>
-    ),
+    ),{
+      basename: import.meta.env.VITE_BASE_URL || ''
+    }
   )
 
   return (
