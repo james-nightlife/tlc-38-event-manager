@@ -10,13 +10,14 @@ import RootLayout from './layout/RootLayout'
 import Dashboard from './pages/Dashboard'
 import DashboardWorkshop from './pages/DashboardWorkshop'
 import Scan from './pages/Scan'
+import TestScan from './pages/TestScan'
 
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/' element={<RootLayout />}>
-        <Route index element={<Scan />} />
+        <Route index element={<TestScan />} />
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/dashboard/workshop' element={<DashboardWorkshop />} />
