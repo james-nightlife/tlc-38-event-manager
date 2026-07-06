@@ -9,13 +9,14 @@ import SignIn from './pages/SignIn'
 import RootLayout from './layout/RootLayout'
 import Dashboard from './pages/Dashboard'
 import DashboardWorkshop from './pages/DashboardWorkshop'
+import Scan from './pages/Scan'
 
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/' element={<RootLayout />}>
-        <Route index element={<Home />} />
+        <Route index element={<Scan />} />
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/dashboard/workshop' element={<DashboardWorkshop />} />

@@ -27,7 +27,7 @@ const Home = () => {
         }
         
         try {
-            const req = await axios.get(`https://libportal.swu.ac.th/tlcAPI/api/tlc/checkin/user/${userId}`, {
+            const req = await axios.get(`${import.meta.env.VITE_API_URL}/api/tlc/checkin/user/${userId}`, {
                 headers: {
                     'Authorization': import.meta.env.VITE_API_SECRET
                 }
