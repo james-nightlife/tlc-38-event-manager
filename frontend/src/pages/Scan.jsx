@@ -3,8 +3,6 @@ import { Scanner } from "@yudiel/react-qr-scanner";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-const KEY_SECRET = "4vEt0K0hhMcUDd6soUUJTm2K";
-
 const Scan = () => {
   const [scannedData, setScannedData] = useState(null);
   const [user, setUser] = useState({});
@@ -29,11 +27,14 @@ const Scan = () => {
 
     setIsLoading(true);
     try {
-      const req = await axios.get(`${import.meta.env.VITE_API_URL}/api/tlc/checkin/user/${userId}`, {
-        headers: {
-          Authorization: KEY_SECRET,
+      const req = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/tlc/checkin/user/${userId}`,
+        {
+          headers: {
+            Authorization: import.meta.env.VITE_API_SECRET,
+          },
         },
-    });
+      );
       const userData = req.data;
       setUser(userData.user || {});
     } catch (error) {
@@ -69,7 +70,7 @@ const Scan = () => {
         },
         {
           headers: {
-            Authorization: KEY_SECRET,
+            Authorization: import.meta.env.VITE_API_SECRET,
           },
         },
       );
@@ -107,7 +108,11 @@ const Scan = () => {
               📷 สแกนคิวอาร์โค้ดผู้เข้าร่วมงาน
             </label>
             <div className="overflow-hidden rounded-xl border-4 border-gray-100 shadow-inner max-w-xs mx-auto w-full aspect-square">
-              <Scanner onScan={handleScan} onError={handleError} sound={false} />
+              <Scanner
+                onScan={handleScan}
+                onError={handleError}
+                sound={false}
+              />
             </div>
           </div>
 
@@ -242,7 +247,7 @@ const Scan = () => {
             <button
               type="submit"
               disabled={!scannedData || !user._id}
-              className="w-full mt-2 bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-blue-700 active:bg-blue-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
+              className="w-full h-24 mt-2 bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-blue-700 active:bg-blue-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
             >
               📥 ยืนยันการรับลงทะเบียน
             </button>

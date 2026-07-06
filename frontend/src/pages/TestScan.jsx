@@ -1,4 +1,3 @@
-import React from 'react'
 import { useEffect, useState } from "react";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import axios from "axios";
@@ -7,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 const KEY_SECRET = "4vEt0K0hhMcUDd6soUUJTm2K";
 
 const TestScan = () => {
-    const [scannedData, setScannedData] = useState(null);
+  const [scannedData, setScannedData] = useState(null);
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
@@ -30,11 +29,14 @@ const TestScan = () => {
 
     setIsLoading(true);
     try {
-      const req = await axios.get(`${import.meta.env.VITE_API_URL}/api/tlc/checkin/user/${userId}`, {
-        headers: {
-          Authorization: KEY_SECRET,
+      const req = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/tlc/checkin/user/${userId}`,
+        {
+          headers: {
+            Authorization: KEY_SECRET,
+          },
         },
-    });
+      );
       const userData = req.data;
       setUser(userData.user || {});
     } catch (error) {
@@ -96,7 +98,6 @@ const TestScan = () => {
         เพื่อรองรับการแสดงผลแบบ 2 คอลัมน์
       */}
       <div className="w-full max-w-md md:max-w-4xl bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden transition-all duration-300">
-        
         {/* Header Section: ซ่อนบนมือถือ (hidden) และแสดงบน iPad ขึ้นไป (sm:block หรือ md:block) */}
         <div className="hidden sm:block bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-white text-center">
           <h1 className="text-xl font-bold tracking-wide">
@@ -109,7 +110,6 @@ const TestScan = () => {
           หากอยู่บนมือถือจะเรียงเป็นคอลัมน์เดียวตามปกติ
         */}
         <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-          
           {/* ================= ซีกซ้าย (บน iPad) / ส่วนบน (บนมือถือ) ================= */}
           <div className="flex flex-col gap-6">
             {/* QR Scanner Section */}
@@ -119,7 +119,11 @@ const TestScan = () => {
               </label>
               {/* ปรับขนาดกล้องให้ยืดหยุ่นเต็มพื้นที่ฝั่งซ้ายเมื่ออยู่บน iPad */}
               <div className="overflow-hidden rounded-xl border-4 border-gray-100 shadow-inner max-w-xs md:max-w-none mx-auto w-full aspect-square">
-                <Scanner onScan={handleScan} onError={handleError} sound={false} />
+                <Scanner
+                  onScan={handleScan}
+                  onError={handleError}
+                  sound={false}
+                />
               </div>
             </div>
 
@@ -155,7 +159,6 @@ const TestScan = () => {
           <div className="flex flex-col gap-6">
             {/* Registration Form */}
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              
               {/* QR Code ID Field: ซ่อนบนมือถือ (hidden) และแสดงเฉพาะ iPad ขึ้นไป (sm:flex หรือ md:flex) */}
               <div className="hidden sm:flex flex-col gap-1.5">
                 <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
@@ -212,7 +215,9 @@ const TestScan = () => {
                     className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
                   >
                     <option value="">-- เลือกกิจกรรม --</option>
-                    <option value="9/7/2569">ลงทะเบียนวันที่ 9 ก.ค. 2569</option>
+                    <option value="9/7/2569">
+                      ลงทะเบียนวันที่ 9 ก.ค. 2569
+                    </option>
                     <option value="10/7/2569">
                       ลงทะเบียนวันที่ 10 ก.ค. 2569
                     </option>
@@ -262,7 +267,7 @@ const TestScan = () => {
               <button
                 type="submit"
                 disabled={!scannedData || !user._id}
-                className="w-full mt-2 bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-blue-700 active:bg-blue-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
+                className="w-full h-24 mt-2 bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-blue-700 active:bg-blue-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
               >
                 📥 ยืนยันการรับลงทะเบียน
               </button>
@@ -286,11 +291,10 @@ const TestScan = () => {
               </button>
             </div>
           </div>
-
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TestScan
+export default TestScan;
