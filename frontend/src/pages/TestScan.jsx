@@ -109,7 +109,7 @@ const TestScan = () => {
       */}
       <div className="w-full max-w-md md:max-w-4xl bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden transition-all duration-300">
         {/* Header Section: ซ่อนบนมือถือ (hidden) และแสดงบน iPad ขึ้นไป (sm:block หรือ md:block) */}
-        <div className="hidden sm:block bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-white text-center">
+        <div className="hidden sm:block bg-linear-to-r from-blue-600 to-indigo-600 p-6 text-white text-center">
           <h1 className="text-xl font-bold tracking-wide">
             ระบบบันทึกการลงทะเบียน {dateFormatted}
           </h1>

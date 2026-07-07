@@ -94,7 +94,7 @@ const Scan = () => {
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden transition-all duration-300">
         {/* Header Section */}
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-white text-center">
+        <div className="bg-linear-to-r from-blue-600 to-indigo-600 p-6 text-white text-center">
           <h1 className="text-xl font-bold tracking-wide">
             ระบบบันทึกการลงทะเบียน
           </h1>
