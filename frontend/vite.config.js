@@ -17,5 +17,5 @@ export default defineConfig({
       domains: ["localhost", "10.1.117.200", "192.168.1.4"],
     }),
   ],
-  base: "tlc-38-event-manager",
+  base: "tlc38admin",
 });
