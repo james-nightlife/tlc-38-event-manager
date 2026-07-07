@@ -156,7 +156,7 @@ const TestScan = () => {
                   disabled={isLoading || !scannedData}
                   className="px-4 py-2.5 bg-gray-800 text-white font-medium rounded-lg hover:bg-gray-700 active:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition text-sm whitespace-nowrap"
                 >
-                  {isLoading ? "กำลังโหลด..." : "ตรวจสอบ"}
+                  {isLoading ? "กำลังโหลด..." : "ค้นหา"}
                 </button>
               </div>
             </div>
@@ -234,7 +234,7 @@ const TestScan = () => {
                       }
                       className="w-full h-20 mt-2 bg-yellow-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-yellow-700 active:bg-yellow-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
                     >
-                      workshop 1
+                      Board game for Library
                     </button>
                     <button
                       type="submit"
@@ -246,7 +246,7 @@ const TestScan = () => {
                       }
                       className="w-full h-20 mt-2 bg-yellow-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-yellow-700 active:bg-yellow-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
                     >
-                      workshop 2
+                      AI for Librarian
                     </button>
                     <button
                       type="submit"
@@ -258,7 +258,7 @@ const TestScan = () => {
                       }
                       className="w-full h-20 mt-2 bg-yellow-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-yellow-700 active:bg-yellow-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
                     >
-                      workshop 3
+                      Communication Technology ...
                     </button>
                   </div>
                 </>
@@ -266,7 +266,11 @@ const TestScan = () => {
 
               {userRole === "sponsor" && (
                 <>
-                  <input type="hidden" name="booth" value={sponsor} />
+                  <input
+                    type="hidden"
+                    name="booth"
+                    value={sponsor.substring(2)}
+                  />
                   <button
                     type="submit"
                     disabled={!scannedData || !user._id}

@@ -1,8 +1,17 @@
 import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FaCheck } from "react-icons/fa";
+
 // ------
 import { useQuery } from "@tanstack/react-query";
+
+const arrWorkshops = [
+  " ",
+  "Board game for Library",
+  "AI for Librarian",
+  "Communication Technology for Library",
+];
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -208,11 +217,11 @@ const Dashboard = () => {
         <section className="grid gap-4 lg:grid-cols-2">
           <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
             <h2 className="text-xl font-semibold text-slate-900">
-              ผู้ลงทะเบียนเข้าบูธครบ 19 บูธ
+              ผู้ลงทะเบียนเข้าบูธครบครบตามเงื่อนไข
             </h2>
             <p className="mt-2 text-slate-600">
-              นับเฉพาะผู้ที่ลงทะเบียนเข้าร่วมงานในวันนั้นและเข้าบูธอย่างน้อย 19
-              บูธ
+              วันที่ 9 ก.ค. 2569 เข้าบูธ 12 บูธขึ้นไป วันที่ 10 ก.ค. 2569
+              เข้าบูธครบ 24 บูธ (รวม 2 วัน)
             </p>
             <div className="mt-6 space-y-4">
               {days
@@ -303,7 +312,7 @@ const Dashboard = () => {
               <thead>
                 <tr>
                   <th className="border-b border-slate-200 px-4 py-3 font-medium text-slate-600">
-                    ที่
+                    เลขที่
                   </th>
                   <th className="border-b border-slate-200 px-4 py-3 font-medium text-slate-600">
                     ชื่อ - สกุล
@@ -336,7 +345,7 @@ const Dashboard = () => {
                   dataPreview.map((user, idx) => (
                     <tr key={user._id?.$oid || idx} className="odd:bg-slate-50">
                       <td className="border-b border-slate-200 px-4 py-3">
-                        {offset * (page - 1) + (idx + 1)}
+                        {user.id /* {offset * (page - 1) + (idx + 1)} */}
                       </td>
                       <td className="border-b border-slate-200 px-4 py-3">
                         {user.prefix}
@@ -346,10 +355,18 @@ const Dashboard = () => {
                         {user.university}
                       </td>
                       <td className="border-b border-slate-200 px-4 py-3">
-                        {user.visit?.includes("9/7/2569") ? "/" : ""}
+                        {user.visit?.includes("9/7/2569") ? (
+                          <FaCheck color="green" />
+                        ) : (
+                          ""
+                        )}
                       </td>
                       <td className="border-b border-slate-200 px-4 py-3">
-                        {user.visit?.includes("10/7/2569") ? "/" : ""}
+                        {user.visit?.includes("10/7/2569") ? (
+                          <FaCheck color="green" />
+                        ) : (
+                          ""
+                        )}
                       </td>
                       <td className="border-b border-slate-200 px-4 py-3">
                         {user.booth9?.length || 0}
@@ -358,10 +375,10 @@ const Dashboard = () => {
                         {user.booth10?.length || 0}
                       </td>
                       <td className="border-b border-slate-200 px-4 py-3">
-                        {user.workshop}
+                        {user.workshop} - {arrWorkshops[user.workshop]}
                       </td>
                       <td className="border-b border-slate-200 px-4 py-3">
-                        {user.workshop_checkin ? "/" : ""}
+                        {user.workshop_checkin ? <FaCheck color="green" /> : ""}
                       </td>
                     </tr>
                   ))
