@@ -23,6 +23,7 @@
     "backend_dev": "cd backend && npm i && npm run dev"
   },
   "dependencies": {
-    "dotenv": "^17.4.2"
+    "dotenv": "^17.4.2",
+    "react-icons": "^5.7.0"
   }
 }

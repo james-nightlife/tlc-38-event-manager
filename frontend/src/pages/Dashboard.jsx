@@ -24,7 +24,14 @@ const Dashboard = () => {
         },
       },
     );
-    return response.data.users || [];
+    const users = response.data.users || [];
+
+    return [...users].sort((a, b) => {
+      const dateA = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+      const dateB = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+
+      return dateB - dateA;
+    });
   };
 
   // 3. --------
@@ -145,8 +152,7 @@ const Dashboard = () => {
                 สถิติการเข้าร่วมงาน TLC 38
               </h1>
               <p className="mt-2 text-slate-600">
-                สรุปจำนวนผู้ลงทะเบียนและยอดเข้าบูธในวันที่ 9 และ 10 กรกฎาคม
-                (อัปเดตอัตโนมัติทุก 3 วิ)
+                สรุปจำนวนผู้ลงทะเบียนและยอดเข้าบูธในวันที่ 9 และ 10 กรกฎาคม 2569
               </p>
             </div>
           </div>
@@ -340,14 +346,10 @@ const Dashboard = () => {
                         {user.university}
                       </td>
                       <td className="border-b border-slate-200 px-4 py-3">
-                        {user.visit?.includes("9/7/2569")
-                          ? "เข้าร่วมงานแล้ว"
-                          : "ยังไม่เข้าร่วมงาน"}
+                        {user.visit?.includes("9/7/2569") ? "/" : ""}
                       </td>
                       <td className="border-b border-slate-200 px-4 py-3">
-                        {user.visit?.includes("10/7/2569")
-                          ? "เข้าร่วมงานแล้ว"
-                          : "ยังไม่เข้าร่วมงาน"}
+                        {user.visit?.includes("10/7/2569") ? "/" : ""}
                       </td>
                       <td className="border-b border-slate-200 px-4 py-3">
                         {user.booth9?.length || 0}
@@ -359,9 +361,7 @@ const Dashboard = () => {
                         {user.workshop}
                       </td>
                       <td className="border-b border-slate-200 px-4 py-3">
-                        {user.workshop_checkin
-                          ? "เข้าร่วม Workshop แล้ว"
-                          : "ยังไม่เข้าร่วม Workshop"}
+                        {user.workshop_checkin ? "/" : ""}
                       </td>
                     </tr>
                   ))

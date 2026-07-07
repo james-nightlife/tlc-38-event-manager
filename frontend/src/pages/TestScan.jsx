@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { FaStamp } from "react-icons/fa";
 
 const KEY_SECRET = "4vEt0K0hhMcUDd6soUUJTm2K";
 
@@ -139,7 +140,7 @@ const TestScan = () => {
             {/* Manual Input Search */}
             <div className="flex flex-col gap-2">
               <label className="text-sm font-semibold text-gray-600">
-                QR Code ID หรืออีเมล
+                QR Code ID หรืออีเมล หรือเลขลำดับผู้เข้าร่วมงาน
               </label>
               <div className="flex gap-2">
                 <input
@@ -269,9 +270,10 @@ const TestScan = () => {
                   <button
                     type="submit"
                     disabled={!scannedData || !user._id}
-                    className="w-full h-24 mt-2 bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-blue-700 active:bg-blue-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
+                    className="flex justify-center gap-4 items-center w-full h-24 mt-2 bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-blue-700 active:bg-blue-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
                   >
-                    Stamp {sponsor.substring(2)} {dateFormatted}
+                    <FaStamp size={20} /> Stamp {sponsor.substring(2)}{" "}
+                    {dateFormatted}
                   </button>
                 </>
               )}
