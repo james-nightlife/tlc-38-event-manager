@@ -26,7 +26,7 @@ const Dashboard = () => {
   // --------
   const fetchUsers = async () => {
     const response = await axios.get(
-      "http://localhost:3001/api/tlc/checkin/user",
+      `${import.meta.env.VITE_API_URL}/api/tlc/checkin/user`,
       {
         headers: {
           Authorization: import.meta.env.VITE_API_SECRET,
