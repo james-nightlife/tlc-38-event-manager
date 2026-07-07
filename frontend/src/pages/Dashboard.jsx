@@ -5,6 +5,9 @@ import { FaCheck } from "react-icons/fa";
 
 // ------
 import { useQuery } from "@tanstack/react-query";
+// โมดูลบันทึกเป็น xlsx
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 const arrWorkshops = [
   " ",
@@ -33,7 +36,9 @@ const Dashboard = () => {
         },
       },
     );
-    const users = response.data.users || [];
+    const getusers = response.data.users || [];
+    // เติม field นับจำนวนบูธที่ลงทะเบียนในแต่ละวัน สำหรับบันทึกเป็น xlsx
+    const users = getusers.map((x) => ({...x, booth9count: x.booth9?.length, booth10count: x.booth10?.length}))
 
     return [...users].sort((a, b) => {
       const dateA = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
@@ -136,6 +141,25 @@ const Dashboard = () => {
   const boothRows = Object.entries(boothCounts).sort((a, b) =>
     a[0].localeCompare(b[0]),
   );
+
+  // แสดงข้อมูลผู้ร่วมงานที่เลือก
+  const [userSelected, setUserSelected] = useState({});
+
+  const handleUserSelected = (user_id) => {
+    setUserSelected(users.find((x) => (x.id === user_id)))
+  }
+
+  // เมธอดบันทึกเป็น xlsx
+  const handleXLSX = (data) => {
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+
+    // Buffer the output and trigger download
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+    saveAs(blob, `tlc38_participants_${new Date().getTime()}.xlsx`);
+  }
 
   // --------
   if (isLoading)
@@ -307,6 +331,16 @@ const Dashboard = () => {
               ผลลัพธ์ {filteredData.length} จากทั้งหมด {users.length} รายการ
             </div>
           </div>
+          {/** ส่วนข้อมูลที่เลือก */}
+          <div>
+            <div>เลขที่ : {userSelected.id}</div>
+            <div>ชื่อ - สกุล : {userSelected.prefix}{userSelected.firstname} {userSelected.lastname}</div>
+            <div>มหาวิทยาลัย : {userSelected.university}</div>
+            <div className="flex">เข้าบูธวันที่ 9 ก.ค. 2569 : {userSelected.booth9?.length} {userSelected.booth9?.length > 0 && (<>
+            (<span className="flex gap-2">{userSelected.booth9?.map((x, idx) => (<span>{x}</span>))}</span>)</>)}</div>
+            <div className="flex">เข้าบูธวันที่ 10 ก.ค. 2569 : {userSelected.booth10?.length} {userSelected.booth10?.length > 0 && (<>
+            (<span className="flex gap-2">{userSelected.booth10?.map((x, idx) => (<span>{x}</span>))}</span>)</>)}</div>
+          </div>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-left text-sm">
               <thead>
@@ -368,10 +402,10 @@ const Dashboard = () => {
                           ""
                         )}
                       </td>
-                      <td className="border-b border-slate-200 px-4 py-3">
+                      <td className="border-b border-slate-200 px-4 py-3 underline hover:text-blue-500 hover:cursor-pointer" onClick={() => handleUserSelected(user.id)}>
                         {user.booth9?.length || 0}
                       </td>
-                      <td className="border-b border-slate-200 px-4 py-3">
+                      <td className="border-b border-slate-200 px-4 py-3 underline hover:text-blue-500 hover:cursor-pointer" onClick={() => handleUserSelected(user.id)}>
                         {user.booth10?.length || 0}
                       </td>
                       <td className="border-b border-slate-200 px-4 py-3">
@@ -430,6 +464,9 @@ const Dashboard = () => {
               ถัดไป
             </button>
           </div>
+          <button onClick={() => handleXLSX(filteredData)}>
+                บันทึกเป็น XLSX
+          </button>
           <Link
             to="/"
             className="text-blue-600 hover:underline mt-2 inline-block"

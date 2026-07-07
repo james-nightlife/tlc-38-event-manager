@@ -95,6 +95,31 @@
     "role":"sponsor"
   },
   {
+    "username":"aiswuai", 
+    "password":"SWUAgricultural", 
+    "role":"sponsor"
+  },
+  {
+    "username":"phswuph", 
+    "password":"SWUPharmacy", 
+    "role":"sponsor"
+  },
+  {
+    "username":"ciswucci", 
+    "password":"SWUIndustry", 
+    "role":"sponsor"
+  },
+  {
+    "username":"hmswuhm", 
+    "password":"SWUHumanities", 
+    "role":"sponsor"
+  },
+  {
+    "username":"wuwu", 
+    "password":"WUWalailak", 
+    "role":"sponsor"
+  },
+  {
     "username": "patchareer@g.swu.ac.th",
     "password": "0000015337",
     "role": "swu"
