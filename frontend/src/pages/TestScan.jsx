@@ -11,7 +11,7 @@ let dateFormatted = date.toLocaleDateString("th-TH", {
   calendar: "buddhist",
 });
 
-dateFormatted = "9/7/2569"; // Hardcoded date for testing purposes
+dateFormatted = "10/7/2569"; // Hardcoded date for testing purposes
 
 const TestScan = () => {
   const [scannedData, setScannedData] = useState(null);
@@ -184,20 +184,33 @@ const TestScan = () => {
               </div>
 
               {/* ชื่อ - นามสกุล */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-                  ชื่อ - นามสกุล
-                </label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg text-gray-700 font-medium outline-none cursor-not-allowed"
-                  value={
-                    user._id
-                      ? `${user.prefix || ""}${user.firstname || ""} ${user.lastname || ""}`
-                      : ""
-                  }
-                  readOnly
-                />
+              <div className="flex flex-row gap-1.5">
+                <div className="flex flex-col gap-1.5 w-4/5">
+                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                    ชื่อ - นามสกุล
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg text-gray-700 font-medium outline-none cursor-not-allowed"
+                    value={
+                      user._id
+                        ? `${user.prefix || ""}${user.firstname || ""} ${user.lastname || ""}`
+                        : ""
+                    }
+                    readOnly
+                  />
+                </div>
+                <div className="flex flex-col gap-1.5 w-1/5">
+                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                    เลขที่
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg text-gray-700 font-medium outline-none cursor-not-allowed"
+                    value={user.id ?? ""}
+                    readOnly
+                  />
+                </div>
               </div>
 
               {/* สถาบัน */}
@@ -230,11 +243,12 @@ const TestScan = () => {
                       disabled={
                         !scannedData ||
                         !user._id ||
+                        user.workshop !== "1" ||
                         dateFormatted !== "10/7/2569"
                       }
                       className="w-full h-20 mt-2 bg-yellow-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-yellow-700 active:bg-yellow-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
                     >
-                      Board game for Library
+                      Board game ...
                     </button>
                     <button
                       type="submit"
@@ -242,6 +256,7 @@ const TestScan = () => {
                       disabled={
                         !scannedData ||
                         !user._id ||
+                        user.workshop !== "2" ||
                         dateFormatted !== "10/7/2569"
                       }
                       className="w-full h-20 mt-2 bg-yellow-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-yellow-700 active:bg-yellow-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
@@ -254,11 +269,12 @@ const TestScan = () => {
                       disabled={
                         !scannedData ||
                         !user._id ||
+                        user.workshop !== "3" ||
                         dateFormatted !== "10/7/2569"
                       }
                       className="w-full h-20 mt-2 bg-yellow-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-yellow-700 active:bg-yellow-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
                     >
-                      Communication Technology ...
+                      Communication Technology...
                     </button>
                   </div>
                 </>
