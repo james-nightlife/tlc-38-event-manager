@@ -5,6 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 
 const KEY_SECRET = "4vEt0K0hhMcUDd6soUUJTm2K";
 
+const date = new Date();
+let dateFormatted = date.toLocaleDateString("th-TH", {
+  calendar: "buddhist",
+});
+
+dateFormatted = "9/7/2569"; // Hardcoded date for testing purposes
+
 const TestScan = () => {
   const [scannedData, setScannedData] = useState(null);
   const [user, setUser] = useState({});
@@ -63,12 +70,14 @@ const TestScan = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const dataAction = e.nativeEvent.submitter.dataset.action;
+
       const req = await axios.put(
         `${import.meta.env.VITE_API_URL}/api/tlc/checkin/user/${e.target.id.value}`,
         {
-          action: e.target.action?.value || "checkin",
-          booth: sponsor,
-          date: e.target.date?.value,
+          action: dataAction ?? dateFormatted, // date registration action,
+          booth: e.target.booth?.value, // booth name
+          date: dateFormatted, // registration date
         },
         {
           headers: {
@@ -101,7 +110,7 @@ const TestScan = () => {
         {/* Header Section: ซ่อนบนมือถือ (hidden) และแสดงบน iPad ขึ้นไป (sm:block หรือ md:block) */}
         <div className="hidden sm:block bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-white text-center">
           <h1 className="text-xl font-bold tracking-wide">
-            ระบบบันทึกการลงทะเบียน
+            ระบบบันทึกการลงทะเบียน {dateFormatted}
           </h1>
           <p className="text-sm opacity-80 mt-1">SWU TLC Check-in System</p>
         </div>
@@ -205,72 +214,108 @@ const TestScan = () => {
 
               {/* Conditional Fields based on Role */}
               {userRole === "swu" && (
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-semibold text-gray-700">
-                    กิจกรรมที่เข้าร่วม
-                  </label>
-                  <select
-                    required
-                    name="action"
-                    className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
-                  >
-                    <option value="">-- เลือกกิจกรรม --</option>
-                    <option value="9/7/2569">
-                      ลงทะเบียนวันที่ 9 ก.ค. 2569
-                    </option>
-                    <option value="10/7/2569">
-                      ลงทะเบียนวันที่ 10 ก.ค. 2569
-                    </option>
-                    <option value="workshop_1">ลงทะเบียน Workshop 1</option>
-                    <option value="workshop_2">ลงทะเบียน Workshop 2</option>
-                    <option value="workshop_3">ลงทะเบียน Workshop 3</option>
-                  </select>
-                </div>
-              )}
-
-              {userRole === "sponsor" && (
                 <>
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-                      ผู้สนับสนุน (บูธ)
-                    </label>
-                    <input
-                      type="text"
-                      name="booth"
-                      className="w-full px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg text-gray-700 outline-none cursor-not-allowed"
-                      value={sponsor || ""}
-                      readOnly
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-semibold text-gray-700">
-                      วันที่เข้าบูธ
-                    </label>
-                    <select
-                      required
-                      name="date"
-                      className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                  <button
+                    type="submit"
+                    disabled={!scannedData || !user._id}
+                    className="w-full h-24 mt-2 bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-blue-700 active:bg-blue-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
+                  >
+                    รับลงทะเบียน {dateFormatted}
+                  </button>
+                  <div className="flex flex-row gap-2">
+                    <button
+                      type="submit"
+                      data-action="workshop_1"
+                      disabled={
+                        !scannedData ||
+                        !user._id ||
+                        dateFormatted !== "10/7/2569"
+                      }
+                      className="w-full h-20 mt-2 bg-yellow-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-yellow-700 active:bg-yellow-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
                     >
-                      <option value="">-- เลือกวันที่ --</option>
-                      <option value="9/7/2569">
-                        ลงทะเบียนวันที่ 9 ก.ค. 2569
-                      </option>
-                      <option value="10/7/2569">
-                        ลงทะเบียนวันที่ 10 ก.ค. 2569
-                      </option>
-                    </select>
+                      workshop 1
+                    </button>
+                    <button
+                      type="submit"
+                      data-action="workshop_2"
+                      disabled={
+                        !scannedData ||
+                        !user._id ||
+                        dateFormatted !== "10/7/2569"
+                      }
+                      className="w-full h-20 mt-2 bg-yellow-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-yellow-700 active:bg-yellow-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
+                    >
+                      workshop 2
+                    </button>
+                    <button
+                      type="submit"
+                      data-action="workshop_3"
+                      disabled={
+                        !scannedData ||
+                        !user._id ||
+                        dateFormatted !== "10/7/2569"
+                      }
+                      className="w-full h-20 mt-2 bg-yellow-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-yellow-700 active:bg-yellow-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
+                    >
+                      workshop 3
+                    </button>
                   </div>
                 </>
               )}
 
+              {userRole === "sponsor" && (
+                <>
+                  <input type="hidden" name="booth" value={sponsor} />
+                  <button
+                    type="submit"
+                    disabled={!scannedData || !user._id}
+                    className="w-full h-24 mt-2 bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-blue-700 active:bg-blue-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
+                  >
+                    Stamp {sponsor.substring(2)} {dateFormatted}
+                  </button>
+                </>
+              )}
+
               {/* Submit Button */}
-              <button
+              {/* <button
                 type="submit"
                 disabled={!scannedData || !user._id}
                 className="w-full h-24 mt-2 bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-blue-700 active:bg-blue-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
               >
-                📥 ยืนยันการรับลงทะเบียน
+                รับลงทะเบียน {dateFormatted}
               </button>
+              <div className="flex flex-row gap-2">
+                <button
+                  type="submit"
+                  data-action="workshop_1"
+                  disabled={
+                    !scannedData || !user._id || dateFormatted !== "10/7/2569"
+                  }
+                  className="w-full h-20 mt-2 bg-yellow-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-yellow-700 active:bg-yellow-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
+                >
+                  workshop 1
+                </button>
+                <button
+                  type="submit"
+                  data-action="workshop_2"
+                  disabled={
+                    !scannedData || !user._id || dateFormatted !== "10/7/2569"
+                  }
+                  className="w-full h-20 mt-2 bg-yellow-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-yellow-700 active:bg-yellow-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
+                >
+                  workshop 2
+                </button>
+                <button
+                  type="submit"
+                  data-action="workshop_3"
+                  disabled={
+                    !scannedData || !user._id || dateFormatted !== "10/7/2569"
+                  }
+                  className="w-full h-20 mt-2 bg-yellow-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-yellow-700 active:bg-yellow-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all duration-200 text-center"
+                >
+                  workshop 3
+                </button>
+              </div> */}
             </form>
 
             <hr className="border-gray-200" />
