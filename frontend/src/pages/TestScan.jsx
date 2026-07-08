@@ -1,19 +1,24 @@
 import { useEffect, useState } from "react";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaStamp } from "react-icons/fa";
+
+
 
 const KEY_SECRET = "4vEt0K0hhMcUDd6soUUJTm2K";
 
-const date = new Date();
-let dateFormatted = date.toLocaleDateString("th-TH", {
-  calendar: "buddhist",
-});
-
-dateFormatted = "10/7/2569"; // Hardcoded date for testing purposes
 
 const TestScan = () => {
+  const { date } = useParams();
+
+  const dateNow = new Date();
+  let dateFormatted = dateNow.toLocaleDateString("th-TH", {
+    calendar: "buddhist",
+  });
+
+  dateFormatted = date === '9' ? '9/7/2569' : date === '10' ? '10/7/2569' : dateFormatted; // Hardcoded date for testing purposes
+
   const [scannedData, setScannedData] = useState(null);
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -48,6 +53,9 @@ const TestScan = () => {
       const userData = req.data;
       setUser(userData.user || {});
     } catch (error) {
+      if (error.response?.data?.message) {
+        return alert(error.response.data.message);
+      }
       console.error(error);
       alert(error || "Error fetching user data. Please try again.");
     } finally {

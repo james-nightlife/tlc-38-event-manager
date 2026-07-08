@@ -77,7 +77,8 @@ const Dashboard = () => {
           item.university?.toLowerCase().includes(searchStr) ||
           item.faculty?.toLowerCase().includes(searchStr) ||
           item.position?.toLowerCase().includes(searchStr) ||
-          item.email?.toLowerCase().includes(searchStr)) &&
+          item.email?.toLowerCase().includes(searchStr) ||
+          (item.id?.toString().includes(searchStr))) &&
         (selectedDay === "all" || item.visit?.includes(selectedDay))
       );
     });
@@ -322,7 +323,7 @@ const Dashboard = () => {
             <label className="font-bold">ค้นหาผู้เข้าร่วม</label>
             <input
               type="text"
-              placeholder="ค้นหาชื่อตัว ชื่อสกุล สถาบันอุดมศึกษา ส่วนราชการหรือส่วนงาน หรือ ตำแหน่ง"
+              placeholder="ค้นหาชื่อตัว ชื่อสกุล สถาบันอุดมศึกษา ส่วนราชการหรือส่วนงาน ตำแหน่ง อีเมล และลำดับ"
               className="border p-2 rounded-lg w-full md:w-1/2"
               value={search}
               onChange={(e) => setSearch(e.target.value)}

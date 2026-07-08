@@ -28,6 +28,7 @@ function App() {
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
         <Route index element={<TestScan />} />
+        <Route path="/:date" element={<TestScan />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/workshop" element={<DashboardWorkshop />} />
