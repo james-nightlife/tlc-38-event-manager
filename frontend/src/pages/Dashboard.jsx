@@ -132,15 +132,21 @@ const Dashboard = () => {
     }, {});
   }, [users, selectedDay]);
 
-  const completeBoothCounts = useMemo(() => {
-    return days.reduce((acc, day) => {
-      acc[day] = users.filter((user) => {
-        const visits = user[`visit_${day}`] || [];
-        return user.register?.includes(day) && new Set(visits).size >= 19;
-      }).length;
-      return acc;
-    }, {});
-  }, [users]);
+  const boothCompleteDay9 = useMemo(() => {
+    return users.filter((x) => {
+      const booth9 = x.booth9;
+      return booth9.length >= 12;
+    })
+  }, [users])
+
+  const boothCompleteDay10 = useMemo(() => {
+    return users.filter((x) => {
+      const booth9 = x.booth9;
+      const booth10 = x.booth10;
+      const booth = new Set([...booth9, ...booth10]);
+      return booth.size >= 23;
+    })
+  }, [users])
 
   const boothRows = Object.entries(boothCounts).sort((a, b) =>
     a[0].localeCompare(b[0]),
@@ -156,7 +162,7 @@ const Dashboard = () => {
   }
 
   // เมธอดบันทึกเป็น xlsx
-  const handleXLSX = (data) => {
+  const handleXLSX = (data, filename) => {
     const worksheet = XLSX.utils.json_to_sheet(data);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
@@ -164,7 +170,7 @@ const Dashboard = () => {
     // Buffer the output and trigger download
     const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-    saveAs(blob, `tlc38_participants_${new Date().getTime()}.xlsx`);
+    saveAs(blob, `${filename}_${new Date().getTime()}.xlsx`);
   }
 
   // --------
@@ -247,26 +253,39 @@ const Dashboard = () => {
         <section className="grid gap-4 lg:grid-cols-2">
           <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
             <h2 className="text-xl font-semibold text-slate-900">
-              ผู้ลงทะเบียนเข้าบูธครบครบตามเงื่อนไข
+              ผู้ลงทะเบียนเข้าบูธครบตามเงื่อนไข
             </h2>
             <p className="mt-2 text-slate-600">
               วันที่ 9 ก.ค. 2569 เข้าบูธ 12 บูธขึ้นไป วันที่ 10 ก.ค. 2569
-              เข้าบูธครบ 24 บูธ (รวม 2 วัน)
+              เข้าบูธครบ 23 บูธ (รวม 2 วัน ไม่ซ้ำกัน)
             </p>
             <div className="mt-6 space-y-4">
-              {days
-                .filter((day) => selectedDay === "all" || selectedDay === day)
-                .map((day) => (
-                  <div
-                    key={day}
+              <div
                     className="rounded-3xl border border-slate-200 bg-slate-50 p-4"
                   >
-                    <div className="text-sm text-slate-500">วันที่ {day}</div>
+                    <div className="text-sm text-slate-500">วันที่ 9 ก.ค. 2569 เข้าบูธ 12 บูธขึ้นไป</div>
+                    <div className="flex justify-between">
                     <div className="mt-2 text-3xl font-bold text-slate-900">
-                      {completeBoothCounts[day] || 0}
+                      {boothCompleteDay9.length || 0}
+                    </div>
+                    <button onClick={() => handleXLSX(boothCompleteDay9, 'tlc_completeBoothDay9')}>
+                      บันทึกเป็น XLSX
+                    </button>
                     </div>
                   </div>
-                ))}
+              <div
+                    className="rounded-3xl border border-slate-200 bg-slate-50 p-4"
+                  >
+                    <div className="text-sm text-slate-500">วันที่ 10 ก.ค. 2569 เข้าบูธครบ 23 บูธ (รวม 2 วัน ไม่ซ้ำกัน)</div>
+                    <div className="flex justify-between">
+                    <div className="mt-2 text-3xl font-bold text-slate-900">
+                      {boothCompleteDay10.length || 0}
+                    </div>
+                    <button onClick={() => handleXLSX(boothCompleteDay10, 'tlc_completeBoothDay10')}>
+                      บันทึกเป็น XLSX
+                    </button>
+                    </div>
+                  </div>
             </div>
           </div>
 
@@ -473,7 +492,7 @@ const Dashboard = () => {
               ถัดไป
             </button>
           </div>
-          <button onClick={() => handleXLSX(filteredData)}>
+          <button onClick={() => handleXLSX(filteredData, 'tlc_participant')}>
                 บันทึกเป็น XLSX
           </button>
           <Link
