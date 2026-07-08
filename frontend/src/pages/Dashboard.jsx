@@ -68,8 +68,11 @@ const Dashboard = () => {
   const dates = ["9", "10"];
   const totalRegistered = users.length;
 
+   const [showUserSelected, setShowUserSelected] = useState(false)
+
   const filteredData = useMemo(() => {
     return users.filter((item) => {
+      setShowUserSelected(false)
       const searchStr = search.toLowerCase();
       return (
         (item.firstname?.toLowerCase().includes(searchStr) ||
@@ -145,9 +148,11 @@ const Dashboard = () => {
 
   // แสดงข้อมูลผู้ร่วมงานที่เลือก
   const [userSelected, setUserSelected] = useState({});
+ 
 
   const handleUserSelected = (user_id) => {
     setUserSelected(users.find((x) => (x.id === user_id)))
+    setShowUserSelected(true)
   }
 
   // เมธอดบันทึกเป็น xlsx
@@ -333,15 +338,18 @@ const Dashboard = () => {
             </div>
           </div>
           {/** ส่วนข้อมูลที่เลือก */}
-          <div>
-            <div>เลขที่ : {userSelected.id}</div>
-            <div>ชื่อ - สกุล : {userSelected.prefix}{userSelected.firstname} {userSelected.lastname}</div>
-            <div>มหาวิทยาลัย : {userSelected.university}</div>
-            <div className="flex">เข้าบูธวันที่ 9 ก.ค. 2569 : {userSelected.booth9?.length} {userSelected.booth9?.length > 0 && (<>
-            (<span className="flex gap-2">{userSelected.booth9?.map((x, idx) => (<span>{x}</span>))}</span>)</>)}</div>
-            <div className="flex">เข้าบูธวันที่ 10 ก.ค. 2569 : {userSelected.booth10?.length} {userSelected.booth10?.length > 0 && (<>
-            (<span className="flex gap-2">{userSelected.booth10?.map((x, idx) => (<span>{x}</span>))}</span>)</>)}</div>
-          </div>
+          {showUserSelected && (
+            <div>
+              <div>เลขที่ : {userSelected.id}</div>
+              <div>ชื่อ - สกุล : {userSelected.prefix}{userSelected.firstname} {userSelected.lastname}</div>
+              <div>มหาวิทยาลัย : {userSelected.university}</div>
+              <div className="flex">เข้าบูธวันที่ 9 ก.ค. 2569 : {userSelected.booth9?.length} {userSelected.booth9?.length > 0 && (<>
+              (<span className="flex gap-2">{userSelected.booth9?.map((x, idx) => (<span>{x}</span>))}</span>)</>)}</div>
+              <div className="flex">เข้าบูธวันที่ 10 ก.ค. 2569 : {userSelected.booth10?.length} {userSelected.booth10?.length > 0 && (<>
+              (<span className="flex gap-2">{userSelected.booth10?.map((x, idx) => (<span>{x}</span>))}</span>)</>)}</div>
+            </div>
+          )}
+          
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-left text-sm">
               <thead>
