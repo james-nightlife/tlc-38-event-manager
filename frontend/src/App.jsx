@@ -13,6 +13,7 @@ import TestScan from "./pages/TestScan";
 
 // -----
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Search from "./pages/Search";
 
 // ------
 const queryClient = new QueryClient({
@@ -31,7 +32,7 @@ function App() {
         <Route path="/:date" element={<TestScan />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/dashboard/workshop" element={<DashboardWorkshop />} />
+        <Route path="/search" element={<Search />} />
       </Route>,
     ),
     {
