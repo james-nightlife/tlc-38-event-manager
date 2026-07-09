@@ -54,10 +54,12 @@ const TestScan = () => {
       setUser(userData.user || {});
     } catch (error) {
       if (error.response?.data?.message) {
-        return alert(error.response.data.message);
+        alert(error.response.data.message);
+        return navigate(0);
       }
       console.error(error);
       alert(error || "Error fetching user data. Please try again.");
+      return navigate(0);
     } finally {
       setIsLoading(false);
     }
