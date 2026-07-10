@@ -144,7 +144,32 @@ const Dashboard = () => {
       const booth9 = x.booth9;
       const booth10 = x.booth10;
       const booth = new Set([...booth9, ...booth10]);
-      return booth.size >= 23;
+      return booth.size >= 15;
+    })
+  }, [users])
+
+  const workshop1 = useMemo(() => {
+    return users.filter((x) => {
+      const workshop_id = x.workshop;
+      const workshop_visit = x.workshop_checkin;
+      return (workshop_id === '1') && workshop_visit;
+    })
+  }, [users])
+
+
+  const workshop2 = useMemo(() => {
+    return users.filter((x) => {
+      const workshop_id = x.workshop;
+      const workshop_visit = x.workshop_checkin;
+      return (workshop_id === '2') && workshop_visit;
+    })
+  }, [users])
+
+  const workshop3 = useMemo(() => {
+    return users.filter((x) => {
+      const workshop_id = x.workshop;
+      const workshop_visit = x.workshop_checkin;
+      return (workshop_id === '3') && workshop_visit;
     })
   }, [users])
 
@@ -257,7 +282,7 @@ const Dashboard = () => {
             </h2>
             <p className="mt-2 text-slate-600">
               วันที่ 9 ก.ค. 2569 เข้าบูธ 12 บูธขึ้นไป วันที่ 10 ก.ค. 2569
-              เข้าบูธครบ 23 บูธ (รวม 2 วัน ไม่ซ้ำกัน)
+              เข้าบูธครบ 15 บูธ (รวม 2 วัน ไม่ซ้ำกัน)
             </p>
             <div className="mt-6 space-y-4">
               <div
@@ -276,12 +301,54 @@ const Dashboard = () => {
               <div
                     className="rounded-3xl border border-slate-200 bg-slate-50 p-4"
                   >
-                    <div className="text-sm text-slate-500">วันที่ 10 ก.ค. 2569 เข้าบูธครบ 23 บูธ (รวม 2 วัน ไม่ซ้ำกัน)</div>
+                    <div className="text-sm text-slate-500">วันที่ 10 ก.ค. 2569 เข้าบูธครบ 15 บูธ (รวม 2 วัน ไม่ซ้ำกัน)</div>
                     <div className="flex justify-between">
                     <div className="mt-2 text-3xl font-bold text-slate-900">
                       {boothCompleteDay10.length || 0}
                     </div>
                     <button onClick={() => handleXLSX(boothCompleteDay10, 'tlc_completeBoothDay10')}>
+                      บันทึกเป็น XLSX
+                    </button>
+                    </div>
+                  </div>
+
+                  <div
+                    className="rounded-3xl border border-slate-200 bg-slate-50 p-4"
+                  >
+                    <div className="text-sm text-slate-500">ผู้เข้าร่วม Workshop 1</div>
+                    <div className="flex justify-between">
+                    <div className="mt-2 text-3xl font-bold text-slate-900">
+                      {workshop1.length || 0}
+                    </div>
+                    <button onClick={() => handleXLSX(workshop1, 'tlc_completeBoothDay10')}>
+                      บันทึกเป็น XLSX
+                    </button>
+                    </div>
+                  </div>
+
+                  <div
+                    className="rounded-3xl border border-slate-200 bg-slate-50 p-4"
+                  >
+                    <div className="text-sm text-slate-500">ผู้เข้าร่วม Workshop 2</div>
+                    <div className="flex justify-between">
+                    <div className="mt-2 text-3xl font-bold text-slate-900">
+                      {workshop2.length || 0}
+                    </div>
+                    <button onClick={() => handleXLSX(workshop2, 'tlc_completeBoothDay10')}>
+                      บันทึกเป็น XLSX
+                    </button>
+                    </div>
+                  </div>
+
+                  <div
+                    className="rounded-3xl border border-slate-200 bg-slate-50 p-4"
+                  >
+                    <div className="text-sm text-slate-500">ผู้เข้าร่วม Workshop 3</div>
+                    <div className="flex justify-between">
+                    <div className="mt-2 text-3xl font-bold text-slate-900">
+                      {workshop3.length || 0}
+                    </div>
+                    <button onClick={() => handleXLSX(workshop3, 'tlc_completeBoothDay10')}>
                       บันทึกเป็น XLSX
                     </button>
                     </div>
